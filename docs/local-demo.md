@@ -16,7 +16,7 @@ planning owner access, not just editing the URL.
 
 ## 1. Prepare
 
-Start Docker Desktop. Install Git, Node.js 24+ with npm, and ensure `curl` and
+Start Docker Desktop. Install Git, Node.js 24.22.1 with npm, and ensure `curl` and
 `openssl` are available for the commands below. You need
 a mainnet RPC URL, a [Pyth API key](https://pythdata.app/) and a dedicated sponsor
 key. Use an existing key or follow [sponsor key setup](../deploy/README.md#prepare-the-sponsor-key).
@@ -32,8 +32,8 @@ npm --version
 For a new checkout:
 
 ```sh
-git clone --branch pay-v0.8.6 --depth 1 https://github.com/SublyFi/subly-payment-protocol.git
-cd subly-payment-protocol
+git clone --branch pay-v0.8.7 --depth 1 https://github.com/SublyFi/sublyfi-pay.git
+cd sublyfi-pay
 ```
 
 For an existing checkout, preserve local settings, the ledger and pending state.
@@ -175,7 +175,7 @@ Add `subly` to the existing `mcpServers` object, preserving other entries:
   "mcpServers": {
     "subly": {
       "command": "npx",
-      "args": ["-y", "@subly_fi/pay@0.8.6", "mcp"],
+      "args": ["-y", "@subly_fi/pay@0.8.7", "mcp"],
       "env": {
         "SUBLY_RELAYER_URL": "http://localhost",
         "SOLANA_RPC_URL": "REPLACE_WITH_MAINNET_RPC_URL",
@@ -191,7 +191,7 @@ Add `subly` to the existing `mcpServers` object, preserving other entries:
 Use absolute paths and your real RPC URL. Quit and reopen Claude Desktop;
 it should expose 13 Subly tools. The config contains RPC credentials, so restrict
 its permissions and redact them before sharing diagnostics. If Node is installed through a version manager,
-make its Node 24 binary directory available in the MCP process's `PATH`.
+make its Node 24.22.1 binary directory available in the MCP process's `PATH`.
 
 The localhost URL is the relayer address inside the MCP environment. Subly MCP
 uses stdio; the relayer URL is not a remote MCP connector URL.

@@ -96,6 +96,12 @@ members = ["programs/subly"]
     }
   });
 
+  it("preserves safe integers and rejects integers that would lose precision", () => {
+    expect(toml.parse("value = 9007199254740991")).toEqual({ value: Number.MAX_SAFE_INTEGER });
+    expect(() => toml.parse("value = 9007199254740992")).toThrow();
+    expect(() => toml.parse(`value = ${"9".repeat(100_000)}`)).toThrow();
+  });
+
   it.each([
     '[a.b]\ny = 1\n[a.b.y.__proto__.__proto__]\nsublyPrototypePolluted = "yes"',
     'aa = 1\n[[a]]\n[aa.__proto__.__proto__]\nsublyPrototypePolluted = "yes"'

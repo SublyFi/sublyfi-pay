@@ -2,6 +2,18 @@
 
 All notable changes to the repository and the published client are recorded here. The project did not maintain a complete changelog before this file was added; older history is available in Git and npm.
 
+## 0.8.7 — 2026-10-24
+
+- Raise the Node.js 24 baseline to 24.22.1 for the [October 21 security fixes](https://nodejs.org/en/blog/vulnerability/october-2026-security-releases), and align the development, CI and Docker runtime versions. Supported package engines are `^24.22.1 || >=26.12.1`.
+- Update vulnerable client and relayer dependencies, including MCP SDK 1.32.1, Fastify 5.12.7 and the parent-scoped TOML override to 5.0.1. Update the Vitest 4 toolchain and affected transitive dependencies while retaining the existing Solana SDK major versions.
+- Refresh the versioned installation examples and correct the npm trusted-publisher repository name to `sublyfi-pay` in the release instructions.
+
+Upgrade Node.js on client hosts and rebuild relayer containers from the new tag.
+Payment rules and database schema are unchanged. Preserve the ledger and client
+pending-state files. Publication and verification are recorded by the release
+workflow; publication does not upgrade a running relayer or establish a new
+mainnet payment test.
+
 ## 0.8.6 — 2026-09-21
 
 - Correct the quick-start policy example: its approval threshold must be strictly below the per-payment cap. The example retains a 0.01 USDC daily API ceiling.

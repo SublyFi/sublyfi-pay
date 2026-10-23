@@ -1,4 +1,5 @@
 import { accessSync, constants } from "node:fs";
+import { isSupportedNodeVersion } from "../../../src/config/node-runtime.js";
 import { vaultCatalogFromEnv, defaultCatalogVault } from "../../../src/config/vault-catalog.js";
 type Check = { name: string; ok: boolean; message: string };
 const checks: Check[] = [];
@@ -7,7 +8,7 @@ async function check(name: string, action: () => string | Promise<string>) {
   catch (error) { checks.push({ name, ok: false, message: error instanceof Error ? error.message : "Check failed" }); }
 }
 const env = process.env;
-await check("node", () => { if (Number(process.versions.node.split(".")[0]) < 24) throw new Error("Install Node.js 24 or later"); return process.versions.node; });
+await check("node", () => { if (!isSupportedNodeVersion(process.versions.node)) throw new Error("Install Node.js 24.22.1 or later in the 24.x line, or 26.12.1 or later"); return process.versions.node; });
 await check("signer configuration", () => {
   const provider = env.SUBLY_SIGNER_PROVIDER?.trim().toLowerCase() || "local";
   if (provider === "local") {

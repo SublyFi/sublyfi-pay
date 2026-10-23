@@ -6,11 +6,11 @@ Write documentation, setup prompts, examples, code comments and user-facing mess
 
 ## Local development
 
-Use Node.js 24 and npm 11 (`.nvmrc` pins the development major). Run the shell commands below in macOS, Linux or Windows WSL.
+Use Node.js 24.22.1 and npm 11 (`.nvmrc` pins the exact development version). Run the shell commands below in macOS, Linux or Windows WSL.
 
 ```bash
-git clone https://github.com/SublyFi/subly-payment-protocol.git
-cd subly-payment-protocol
+git clone https://github.com/SublyFi/sublyfi-pay.git
+cd sublyfi-pay
 npm ci
 npm ci --prefix packages/pay
 HOST=127.0.0.1 npm run dev

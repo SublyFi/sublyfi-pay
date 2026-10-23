@@ -1,6 +1,6 @@
 # Run a Subly relayer
 
-This guide installs Subly **0.8.6** from the `pay-v0.8.6` source tag on Linux.
+This guide installs Subly **0.8.7** from the `pay-v0.8.7` source tag on Linux.
 The relayer provides the vault API, gas sponsorship and PostgreSQL ledger.
 Sellers use their own x402 facilitator. This is unaudited beta software that
 uses real mainnet funds. The relayer enforces owner policy and principal
@@ -20,7 +20,7 @@ Use Bash and one operator account with sudo and Docker access. Install:
   Complete the [Linux post-installation steps](https://docs.docker.com/engine/install/linux-postinstall/)
   so the operator can run Docker without sudo, then log in again.
 - Git, curl, OpenSSL, Python 3, GNU `install`/`tar`, and a cron service.
-- [Node.js 24 or newer, with npm](https://nodejs.org/en/download), for validation scripts.
+- [Node.js 24.22.1, with npm](https://nodejs.org/en/download), for validation scripts.
 - [Solana CLI](https://solana.com/docs/intro/installation), for sponsor key creation.
 
 You also need:
@@ -37,7 +37,7 @@ Check before proceeding. `docker version` must show both Client and Server:
 ```bash
 docker version
 docker compose version
-node --version                    # v24.x or newer
+node --version                    # v24.22.1 (recommended)
 npm --version
 git --version
 python3 --version
@@ -79,7 +79,7 @@ This creates `/opt/subly`, owned by the operator. It stops if that path exists:
     exit 1
   fi
   sudo install -d -o "$(id -u)" -g "$(id -g)" -m 0750 /opt/subly
-  git clone --branch pay-v0.8.6 --depth 1 https://github.com/SublyFi/subly-payment-protocol.git /opt/subly
+  git clone --branch pay-v0.8.7 --depth 1 https://github.com/SublyFi/sublyfi-pay.git /opt/subly
 )
 ```
 
@@ -88,11 +88,11 @@ If cloning stops partway through, inspect the directory before retrying.
 <details>
 <summary>Alternative: transfer a source archive</summary>
 
-From a workstation checkout containing `pay-v0.8.6`, replace `OPERATOR@HOST`:
+From a workstation checkout containing `pay-v0.8.7`, replace `OPERATOR@HOST`:
 
 ```bash
-git archive --format=tar.gz -o /tmp/subly-pay-v0.8.6.tar.gz pay-v0.8.6
-scp /tmp/subly-pay-v0.8.6.tar.gz OPERATOR@HOST:/tmp/
+git archive --format=tar.gz -o /tmp/subly-pay-v0.8.7.tar.gz pay-v0.8.7
+scp /tmp/subly-pay-v0.8.7.tar.gz OPERATOR@HOST:/tmp/
 ```
 
 On the host, extract as the operator:
@@ -100,11 +100,11 @@ On the host, extract as the operator:
 ```bash
 (
   set -euo pipefail
-  test -f /tmp/subly-pay-v0.8.6.tar.gz
+  test -f /tmp/subly-pay-v0.8.7.tar.gz
   test ! -e /opt/subly
   test ! -L /opt/subly
   sudo install -d -o "$(id -u)" -g "$(id -g)" -m 0750 /opt/subly
-  tar --no-same-owner -xzf /tmp/subly-pay-v0.8.6.tar.gz -C /opt/subly
+  tar --no-same-owner -xzf /tmp/subly-pay-v0.8.7.tar.gz -C /opt/subly
 )
 ```
 
@@ -499,7 +499,7 @@ Copy the reviewed catalogue to each client and add to its MCP `env`:
 }
 ```
 
-Use `@subly_fi/pay@0.8.6` or a compatible newer client. Restart after changes.
+Use `@subly_fi/pay@0.8.7` or a compatible newer client. Restart after changes.
 The relayer and client independently verify metadata; `GET /v1/vaults` does not
 install client trust settings. Client catalogues may be subsets, but selected
 vault metadata must match.
@@ -576,15 +576,15 @@ Use both Compose files for custom catalogues. For Git installations, inspect
 
 ```bash
 cd /opt/subly
-git fetch --depth 1 origin tag pay-v0.8.6
-git checkout --detach pay-v0.8.6
+git fetch --depth 1 origin tag pay-v0.8.7
+git checkout --detach pay-v0.8.7
 ```
 
 For archive installations, transfer the reviewed tag's archive as in step 2,
 then extract as the operator into the existing source directory:
 
 ```bash
-tar --no-same-owner -xzf /tmp/subly-pay-v0.8.6.tar.gz -C /opt/subly
+tar --no-same-owner -xzf /tmp/subly-pay-v0.8.7.tar.gz -C /opt/subly
 ```
 
 The source archive does not contain host-only configuration or keys. Rebuild:
@@ -595,7 +595,7 @@ docker compose config --quiet
 docker compose build relayer
 docker compose up -d --wait relayer
 curl --fail https://YOUR_DOMAIN/readyz
-printf '%s\n' 'pay-v0.8.6' > /opt/subly/DEPLOYED_VERSION
+printf '%s\n' 'pay-v0.8.7' > /opt/subly/DEPLOYED_VERSION
 ```
 
 Repeat read-only validation and the authorized smoke test before restoring

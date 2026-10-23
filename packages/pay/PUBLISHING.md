@@ -7,7 +7,7 @@ deploy a relayer.
 
 ## Prerequisites and build inputs
 
-Use Node.js 24 and npm 11. Normal publication uses the configured GitHub Actions
+Use Node.js 24.22.1 and npm 11. Normal publication uses the configured GitHub Actions
 trusted publisher for `@subly_fi/pay`; a local maintainer fallback requires an
 account authorized to publish that package and registry authentication.
 
@@ -32,7 +32,7 @@ After publication, run the registry verifier from the repository root, using
 the exact released version:
 
 ```bash
-node scripts/verify-published-package.mjs --version 0.8.6 --require-provenance
+node scripts/verify-published-package.mjs --version 0.8.7 --require-provenance
 ```
 
 The verifier waits for registry availability, installs the exact public version
