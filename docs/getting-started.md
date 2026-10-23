@@ -4,11 +4,11 @@ Choose one path. The linked guide contains the commands.
 
 | Goal | Requirements | Guide |
 | --- | --- | --- |
-| Try the API locally | Git, Node.js 24, npm 11; no funds | [Local startup](../README.md#try-it-locally) |
-| Use an existing relayer | Node.js 24+, operator URL, mainnet RPC, agent wallet | [Client setup](../packages/pay/README.md#quick-start) |
+| Try the API locally | Git, Node.js 24.22.1, npm 11; no funds | [Local startup](../README.md#try-it-locally) |
+| Use an existing relayer | Node.js 24.22.1, operator URL, mainnet RPC, agent wallet | [Client setup](../packages/pay/README.md#quick-start) |
 | Run your own relayer | Linux server, Docker Compose, domain, RPC, Pyth access, sponsor SOL | [Operator setup](../deploy/README.md) |
-| Run a relayer on your Mac with Claude Desktop | Docker Desktop, Node.js 24+, RPC, Pyth access, sponsor and agent wallets | [Local Docker setup](local-demo.md) |
-| Contribute | Git, Node.js 24, npm 11 | [Development guide](../CONTRIBUTING.md) |
+| Run a relayer on your Mac with Claude Desktop | Docker Desktop, Node.js 24.22.1, RPC, Pyth access, sponsor and agent wallets | [Local Docker setup](local-demo.md) |
+| Contribute | Git, Node.js 24.22.1, npm 11 | [Development guide](../CONTRIBUTING.md) |
 
 For help from Claude Code, Codex or ChatGPT, copy an [AI setup prompt](ai-setup-prompts.md).
 
@@ -19,10 +19,10 @@ Ask your operator for its HTTPS URL and reviewed vault configuration. There is n
 Follow the [client guide](../packages/pay/README.md#quick-start) in this order:
 
 1. Configure a dedicated agent wallet, relayer, mainnet RPC and vault.
-2. Run `npx -y @subly_fi/pay@0.8.6 doctor`. Continue when it reports `"ok": true`.
+2. Run `npx -y @subly_fi/pay@0.8.7 doctor`. Continue when it reports `"ok": true`.
 3. Create a setup link and approve the spending policy in your browser. Return to the CLI or tell your agent approval is complete; wait for setup status `completed`.
 4. Deposit the approved amount of mainnet USDC.
-5. Check `npx -y @subly_fi/pay@0.8.6 budget`. Wait until spendable yield covers the API price and fees.
+5. Check `npx -y @subly_fi/pay@0.8.7 budget`. Wait until spendable yield covers the API price and fees.
 6. Pay an API that supports x402 Solana mainnet USDC `exact` with `extra.feePayer`.
 
 A successful `doctor` check confirms configuration and connectivity. A fresh deposit does not provide an immediate payment budget. Local detached mode cannot perform these transactions.
@@ -37,7 +37,7 @@ Keep keys, seed phrases, credentials and approval links private. Use a passkey o
 
 | Result | Action |
 | --- | --- |
-| Deposit or withdrawal is `submitted` | Run `npx -y @subly_fi/pay@0.8.6 status <intentId>` with the original ID. Do not repeat the transaction while confirmation is pending. |
+| Deposit or withdrawal is `submitted` | Run `npx -y @subly_fi/pay@0.8.7 status <intentId>` with the original ID. Do not repeat the transaction while confirmation is pending. |
 | Payment is interrupted or its outcome is unknown | Keep the pending JSON file and follow [payment recovery](../packages/pay/README.md#recovery-and-troubleshooting). Do not delete state or force a new payment. |
 | `insufficient_yield` | Check the budget and wait for more yield. |
 | Owner access or policy needs changing | Follow [owner management and recovery](../packages/pay/README.md#manage-the-owner-and-recover-access). |
@@ -50,4 +50,4 @@ Follow the [operator guide](../deploy/README.md) to configure the server, start 
 
 For upgrades, use the guide's update procedure. Preserve the database, credentials and vaults with existing funds. Sponsor SOL pays gas and account rent; fee-debt accounting does not reimburse the operator.
 
-Subly 0.8.6 is beta software without an external security audit. Mainnet operations use real funds. Read the [security model](security-model.md) and [validation status](validation.md) before depositing.
+Subly 0.8.7 is beta software without an external security audit. Mainnet operations use real funds. Read the [security model](security-model.md) and [validation status](validation.md) before depositing.

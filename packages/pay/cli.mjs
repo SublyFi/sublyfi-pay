@@ -32,7 +32,7 @@ Usage: ${command} <command> [arguments]
   mcp                            Start the stdio MCP server
   --version                      Print package version
 
-Amounts: 1000000 raw USDC = 1 USDC. Requires Node.js 24+.
+Amounts: 1000000 raw USDC = 1 USDC. Requires Node.js 24.22.1+ (24.x) or 26.12.1+.
 Set SUBLY_RELAYER_URL, SOLANA_RPC_URL and a wallet signer before use.
 Local signer: SUBLY_DEMO_AGENT_KEYPAIR_PATH=/absolute/path/agent.json
 Payment cap: SUBLY_MCP_MAX_AMOUNT_RAW_USDC (default 10000 = 0.01 USDC).

@@ -16,15 +16,15 @@ Subly includes a CLI/MCP client and a self-hosted relayer. Deposit USDC into a s
 | Try the API without funds | [Local startup](#try-it-locally) |
 | Set up with an AI assistant | [Copy a setup prompt](docs/ai-setup-prompts.md) |
 
-**Beta (0.8.6), no external security audit.** Mainnet operations use real funds. Principal and yield are not guaranteed. Owner approvals and principal accounting are enforced by the relayer; an agent key can transact outside Subly. See the [security model](docs/security-model.md) and [validation status](docs/validation.md).
+**Beta (0.8.7), no external security audit.** Mainnet operations use real funds. Principal and yield are not guaranteed. Owner approvals and principal accounting are enforced by the relayer; an agent key can transact outside Subly. See the [security model](docs/security-model.md) and [validation status](docs/validation.md).
 
 ## Try it locally
 
-Requires Git, Node.js 24 and npm 11. Run these commands in macOS, Linux or Windows WSL:
+Requires Git, Node.js 24.22.1 and npm 11. Run these commands in macOS, Linux or Windows WSL:
 
 ```bash
-git clone https://github.com/SublyFi/subly-payment-protocol.git
-cd subly-payment-protocol
+git clone https://github.com/SublyFi/sublyfi-pay.git
+cd sublyfi-pay
 npm ci
 HOST=127.0.0.1 npm run dev
 ```
@@ -42,10 +42,10 @@ With no RPC or sponsor environment variables set, this starts an in-memory API (
 
 ## Use the client
 
-Requires Node.js 24+, an operator's relayer URL, mainnet RPC and a dedicated agent wallet. Obtain the relayer URL from your operator; this project does not provide a guaranteed public endpoint.
+Use Node.js 24.22.1, an operator's relayer URL, mainnet RPC and a dedicated agent wallet. See [supported Node.js versions](docs/dependencies.md#nodejs-runtime) if you use another release. Obtain the relayer URL from your operator; this project does not provide a guaranteed public endpoint.
 
 ```bash
-npx -y @subly_fi/pay@0.8.6 --help
+npx -y @subly_fi/pay@0.8.7 --help
 ```
 
 Follow the [client setup](packages/pay/README.md#quick-start) to configure the client, approve a spending policy, deposit and check your budget. No repository clone is needed. **A fresh deposit must earn enough yield before it can pay an API.**
